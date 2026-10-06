@@ -1,0 +1,28 @@
+-- Create and use database
+CREATE DATABASE IF NOT EXISTS insurance_db;
+USE insurance_db;
+
+-- Create external table pointing to HDFS data path
+CREATE EXTERNAL TABLE IF NOT EXISTS insurance_claims (
+    age INT,
+    sex INT,
+    bmi DOUBLE,
+    children INT,
+    smoker INT,
+    region INT,
+    charges DOUBLE,
+    claim INT
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+LOCATION '/insurance/data'
+TBLPROPERTIES ("skip.header.line.count"="1");
+
+-- Verify data loading
+SELECT * FROM insurance_claims LIMIT 5;
+
+-- Analytical Query: Average charges by smoker status and claim
+SELECT smoker, claim, COUNT(*) as total_count, AVG(charges) as avg_charges
+FROM insurance_claims
+GROUP BY smoker, claim;

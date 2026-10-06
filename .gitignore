@@ -1,0 +1,16 @@
+# Spark generated output
+results/predictions.parquet/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.log
+
+# Docker/runtime files
+*.pid
